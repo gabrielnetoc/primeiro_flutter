@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Frase Do Dia',
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+        primarySwatch: Colors.blueGrey,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(title: 'Frase do Dia'),
@@ -28,11 +30,11 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  int _numeroAleatorio = 0;
 
   void _incrementCounter() {
     setState(() {
-      _counter++;
+      _numeroAleatorio = new Random().nextInt(11);
     });
   }
 
@@ -50,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'Precione o botão para gerar frase',
             ),
             Text(
-              '$_counter',
+              '$_numeroAleatorio',
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
