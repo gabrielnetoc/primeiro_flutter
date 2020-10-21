@@ -1,46 +1,34 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MaterialApp(
+    home: Home(),
+    debugShowCheckedModeBanner: true,
+  ));
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class Home extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Frase Do Dia',
-      theme: ThemeData(
-        primarySwatch: Colors.blueGrey,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'Frase do Dia'),
-    );
-  }
+  _HomeState createState() => _HomeState();
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _numeroAleatorio = 0;
-  List _frases = [
+class _HomeState extends State<Home> {
+  var _frases = [
     'Você é cãopeão',
     'Não desista, amanhã tem mais',
     'O ontem já passou, olhe o amanhã',
     'Tambem não sei',
   ];
 
-  void _incrementCounter() {
+  var _fraseGerada = "Clique para gerar";
+
+  void _gerarFrase() {
+    var _numeroAleatorio = new Random().nextInt(_frases.length);
     setState(() {
-      _numeroAleatorio = new Random().nextInt(4);
+      _fraseGerada = _frases[_numeroAleatorio];
     });
   }
 
@@ -48,27 +36,43 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Frase"),
+        backgroundColor: Colors.lightGreen,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Prescione o botão para gerar frase',
-            ),
-            Text(
-              _frases[_numeroAleatorio],
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
+        child: Container(
+          padding: EdgeInsets.all(16),
+          // width: double.infinity,
+          /*  decoration:
+              BoxDecoration(border: Border.all(width: 3, color: Colors.amber)),*/
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image.asset("images/logo.png"),
+              Text(
+                _fraseGerada,
+                textAlign: TextAlign.justify,
+                style: TextStyle(
+                    fontSize: 17,
+                    fontStyle: FontStyle.italic,
+                    color: Colors.black87),
+              ),
+              RaisedButton(
+                child: Text(
+                  "Nova Frase",
+                  style: TextStyle(
+                      fontSize: 25,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                ),
+                color: Colors.green,
+                onPressed: _gerarFrase,
+              )
+            ],
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
