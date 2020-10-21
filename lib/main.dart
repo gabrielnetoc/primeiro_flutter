@@ -31,10 +31,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _numeroAleatorio = 0;
+  List _frases = [
+    'Você é cãopeão',
+    'Não desista, amanhã tem mais',
+    'O ontem já passou, olhe o amanhã',
+    'Tambem não sei',
+  ];
 
   void _incrementCounter() {
     setState(() {
-      _numeroAleatorio = new Random().nextInt(11);
+      _numeroAleatorio = new Random().nextInt(4);
     });
   }
 
@@ -49,10 +55,10 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'Precione o botão para gerar frase',
+              'Prescione o botão para gerar frase',
             ),
             Text(
-              '$_numeroAleatorio',
+              _frases[_numeroAleatorio],
               style: Theme.of(context).textTheme.headline4,
             ),
           ],
